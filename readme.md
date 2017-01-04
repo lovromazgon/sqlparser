@@ -1,5 +1,3 @@
-[![Build Status](https://travis-ci.org/xwb1989/sqlparser.svg?branch=master)](https://travis-ci.org/xwb1989/sqlparser)
-
 ##Notice
 
 The backbone of this repo is extracted from [youtube/vitess](https://github.com/youtube/vitess).
@@ -15,7 +13,7 @@ It applies the same LICENSE as youtube/vitess.
 ##Usage
 
     import (
-        "github.com/xwb1989/sqlparser"
+        "github.com/lovromazgon/sqlparser"
     )
 
 Then use

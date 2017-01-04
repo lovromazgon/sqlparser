@@ -8,8 +8,9 @@ import (
 	"errors"
 	"fmt"
 	"strconv"
+	"strings"
 
-	"github.com/xwb1989/sqlparser/dependency/sqltypes"
+	"github.com/lovromazgon/sqlparser/dependency/sqltypes"
 )
 
 // Instructions for creating new types: If a type
@@ -27,6 +28,9 @@ import (
 // Parse parses the sql and returns a Statement, which
 // is the AST representation of the query.
 func Parse(sql string) (Statement, error) {
+	if strings.HasSuffix(sql, ";") {
+		sql = sql[:len(sql)-1]
+	}
 	tokenizer := NewStringTokenizer(sql)
 	if yyParse(tokenizer) != 0 {
 		return nil, errors.New(tokenizer.LastError)
@@ -696,7 +700,7 @@ func (node *ColName) Format(buf *TrackedBuffer) {
 
 func escape(buf *TrackedBuffer, name []byte) {
 	if _, ok := keywords[string(name)]; ok {
-		buf.Myprintf("`%s`", name)
+		buf.Myprintf(`"%s"`, name)
 	} else {
 		buf.Myprintf("%s", name)
 	}

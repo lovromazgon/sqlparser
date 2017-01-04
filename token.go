@@ -9,7 +9,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/xwb1989/sqlparser/dependency/sqltypes"
+	"github.com/lovromazgon/sqlparser/dependency/sqltypes"
 )
 
 const EOFCHAR = 0x100
@@ -252,9 +252,9 @@ func (tkn *Tokenizer) Scan() (int, []byte) {
 			} else {
 				return LEX_ERROR, []byte("!")
 			}
-		case '\'', '"':
+		case '\'':
 			return tkn.scanString(ch, STRING)
-		case '`':
+		case '"':
 			return tkn.scanLiteralIdentifier()
 		default:
 			return LEX_ERROR, []byte{byte(ch)}
@@ -292,7 +292,7 @@ func (tkn *Tokenizer) scanLiteralIdentifier() (int, []byte) {
 	for tkn.next(); isLetter(tkn.lastChar) || isDigit(tkn.lastChar); tkn.next() {
 		buffer.WriteByte(byte(tkn.lastChar))
 	}
-	if tkn.lastChar != '`' {
+	if tkn.lastChar != '"' {
 		return LEX_ERROR, buffer.Bytes()
 	}
 	tkn.next()
