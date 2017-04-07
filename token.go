@@ -127,7 +127,7 @@ var keywords = map[string]int{
 
 	"date":      DATE,
 	"time":      TIME,
-	"timestamp": TIMESTAMP,
+	//"timestamp": TIMESTAMP,
 	"datetime":  DATETIME,
 	"year":      YEAR,
 
@@ -465,7 +465,7 @@ func (tkn *Tokenizer) next() {
 }
 
 func isLetter(ch uint16) bool {
-	return 'a' <= ch && ch <= 'z' || 'A' <= ch && ch <= 'Z' || ch == '_' || ch == '@'
+	return 'a' <= ch && ch <= 'z' || 'A' <= ch && ch <= 'Z' || ch == '_' || ch == '@' || ch == '$'
 }
 
 func digitVal(ch uint16) int {
