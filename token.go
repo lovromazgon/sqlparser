@@ -9,7 +9,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/lovromazgon/sqlparser/dependency/sqltypes"
+	//"github.com/lovromazgon/sqlparser/dependency/sqltypes"
 )
 
 const EOFCHAR = 0x100
@@ -393,7 +393,7 @@ func (tkn *Tokenizer) scanString(delim uint16, typ int) (int, []byte) {
 			} else {
 				break
 			}
-		} else if ch == '\\' {
+		} /*else if ch == '\\' {
 			if tkn.lastChar == EOFCHAR {
 				return LEX_ERROR, buffer.Bytes()
 			}
@@ -403,7 +403,7 @@ func (tkn *Tokenizer) scanString(delim uint16, typ int) (int, []byte) {
 				ch = uint16(decodedChar)
 			}
 			tkn.next()
-		}
+		}*/
 		if ch == EOFCHAR {
 			return LEX_ERROR, buffer.Bytes()
 		}

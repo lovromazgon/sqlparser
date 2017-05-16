@@ -996,6 +996,7 @@ type UpdateExpr struct {
 }
 
 func (node *UpdateExpr) Format(buf *TrackedBuffer) {
+	fmt.Printf("%+v", node.Expr)
 	buf.Myprintf("%v = %v", node.Name, node.Expr)
 }
 

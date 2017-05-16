@@ -10,6 +10,27 @@ import (
 	"testing"
 )
 
+
+func TestEscaping(t *testing.T) {
+	testcases := []struct {
+		in  string
+		id  int
+		out string
+	}{{
+		in:  "'a/\\a''''a'''''",
+		id:  STRING,
+		out: "a/\\a''a''",
+	}}
+
+	for _, tcase := range testcases {
+		tkn := NewStringTokenizer(tcase.in)
+		id, out := tkn.Scan()
+		if tcase.id != id || string(out) != tcase.out {
+			t.Errorf("Scan(%s): %d, %s, want %d, %s", tcase.in, id, out, tcase.id, tcase.out)
+		}
+	}
+}
+
 func TestGen(t *testing.T) {
 	_, err := Parse("select :a from a where a in (:b)")
 	if err != nil {
@@ -26,7 +47,7 @@ func TestParse(t *testing.T) {
 }
 
 func TestParseInsert(t *testing.T) {
-	sql := "INSERT INTO t3 VALUES (8, 10, 'baz')"
+	sql := "INSERT INTO t3 VALUES (8, 10, 'baz ''as''')"
 	_, err := Parse(sql)
 	assert.Nil(t, err)
 }
