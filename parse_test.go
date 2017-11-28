@@ -47,7 +47,7 @@ func TestParse(t *testing.T) {
 }
 
 func TestParseInsert(t *testing.T) {
-	sql := "INSERT INTO t3 VALUES (8, 10, 'baz ''as''')"
+	sql := "INSERT INTO \"t# 3\" VALUES (8, 10, 'baz ''as''')"
 	_, err := Parse(sql)
 	assert.Nil(t, err)
 }

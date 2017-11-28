@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	//"github.com/lovromazgon/sqlparser/dependency/sqltypes"
+	"unicode"
 )
 
 const EOFCHAR = 0x100
@@ -289,7 +290,7 @@ func (tkn *Tokenizer) scanLiteralIdentifier() (int, []byte) {
 	if !isLetter(tkn.lastChar) {
 		return LEX_ERROR, buffer.Bytes()
 	}
-	for tkn.next(); isLetter(tkn.lastChar) || isDigit(tkn.lastChar); tkn.next() {
+	for tkn.next(); isLetter(tkn.lastChar) || isDigit(tkn.lastChar) || unicode.IsSpace(rune(tkn.lastChar)) || rune(tkn.lastChar) == '#'; tkn.next() {
 		buffer.WriteByte(byte(tkn.lastChar))
 	}
 	if tkn.lastChar != '"' {
